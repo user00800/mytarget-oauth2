@@ -11,6 +11,7 @@ use GuzzleHttp\Client;
 use kradwhite\myTarget\api\oauth2\grant\AgencyCredentialsGrant;
 use kradwhite\myTarget\api\oauth2\grant\AuthorizationCodeGrant;
 use kradwhite\myTarget\api\oauth2\grant\ClientCredentialsGrant;
+use kradwhite\myTarget\api\oauth2\grant\CodeInfo;
 use kradwhite\myTarget\api\oauth2\grant\RefreshToken;
 use kradwhite\myTarget\api\oauth2\token\DeleteToken;
 
@@ -123,5 +124,17 @@ class Oauth2
     public function deleteToken(string $client_id, string $client_secret, string $user_id = ""): DeleteToken
     {
         return new DeleteToken($this->transport, $client_id, $client_secret, $user_id);
+    }
+    
+    /**
+     * Получение данных о клиенте по коду
+     * @param string $code
+     * @param string $client_id
+     * @param string $client_secret
+     * @return CodeInfo
+     */
+    public function codeInfo(string $code, string $client_id, string $client_secret): CodeInfo
+    {
+        return new CodeInfo($this->transport, $code, $client_id, $client_secret);
     }
 }
