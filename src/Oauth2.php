@@ -48,16 +48,17 @@ class Oauth2
      * @param string $client_id
      * @param string $scopes
      * @param string $state
+     * @param string $redirect_uri
      * @param string $response_type
      * @return string
      */
-    public function authorizeLink(string $client_id, string $scopes, string $state = '', string $redirect_uri = null, string $response_type = 'code'): string
+    public function authorizeLink(string $client_id, string $scopes, string $state = '', string $redirect_uri = '', string $response_type = 'code'): string
     {
         $query = ['response_type' => $response_type, 'client_id' => $client_id, 'scope' => $scopes];
         if (!empty($state)) {
             $query['state'] = $state;
         }
-        if ($redirect_uri) {
+        if (!empty($redirect_uri)) {
             $query['redirect_uri'] = $redirect_uri;
         }
         return 'https://'
