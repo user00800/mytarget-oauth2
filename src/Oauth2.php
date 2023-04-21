@@ -51,11 +51,14 @@ class Oauth2
      * @param string $response_type
      * @return string
      */
-    public function authorizeLink(string $client_id, string $scopes, string $state = '', string $response_type = 'code'): string
+    public function authorizeLink(string $client_id, string $scopes, string $state = '', string $redirect_uri = null, string $response_type = 'code'): string
     {
         $query = ['response_type' => $response_type, 'client_id' => $client_id, 'scope' => $scopes];
-        if ($state) {
+        if (!empty($state)) {
             $query['state'] = $state;
+        }
+        if ($redirect_uri) {
+            $query['redirect_uri'] = $redirect_uri;
         }
         return 'https://'
             . (isset($this->config['sandbox']) && $this->config['sandbox'] ? 'target-sandbox.my.com' : 'target.my.com')
